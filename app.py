@@ -12,7 +12,7 @@ def index():
 def get_data():
     # バックエンドで生成した固定のデータ
     data = {
-        "message": "こんにちは！これはPythonバックエンドから送られたメッセージです。",
+        "message": "こんにちは！これはPythonバックエンドから送られたメッセージです。あああ",
         "status": "success"
     }
     return jsonify(data)  # JSON形式でフロントに送信
