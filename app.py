@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify
+from datetime import datetime, timedelta, timezone # 現在時刻を取得するためのモジュールを追加
 
 app = Flask(__name__)
 
@@ -11,9 +12,30 @@ def index():
 # 2. フロントエンド（JS）から呼ばれる、データを送るためのルート
 @app.route('/api/data')
 def get_data():
+
+    # 0. 世界標準時の場合
+    # now_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    # 1. 日本標準時（JST）のタイムゾーンを設定 (UTCから+9時間)
+    jst = timezone(timedelta(hours=9))
+    
+    # 2. JSTでの現在時刻を取得
+    now_jst = datetime.now(jst)
+    
+    # 3. 指定したフォーマットで文字列に変換
+    now_time = now_jst.strftime("%Y-%m-%d %H:%M:%S")
+
+    # 2. 取得した時刻の文字列をJSON形式で返却
+    return jsonify({"message": now_time})
+
+"""    # 1. 現在時刻を取得し、読みやすい文字列フォーマットに変換
+    now_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    # 2. 取得した時刻の文字列をJSON形式で返却
     # バックエンドで生成した固定のデータ
-    message = "Hello from Python Backend!"
+    message = "Hello from Python Backend! bbbb"
     return jsonify({"message": message})
+"""
 
 """
     data = {
