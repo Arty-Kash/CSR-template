@@ -15,7 +15,7 @@
     <script>
         // ボタンの表示を切り替える処理
         const btn = document.getElementById('toggleBtn');
-        let timerId = null;
+        let timerId = null;     // タイマーを管理するための変数
 
         /*
         btn.addEventListener('click', () => {
@@ -27,22 +27,24 @@
         });
         */
 
-
         // データを取得して表示を更新する関数
         function updateTime() {
-            fetch('/api/data')
-                .then(response => response.json())
+            fetch('/api/data')      // 指定したURL（BEのプログラム）にデータをくださいのリクエスト送信
+                .then(response => response.json())  // サーバーから返ってきたデータをJSで使えるオブジェクト形式に変換
                 .then(data => {
+                    // 取得したデータの中にある message という文字列を、HTMLの display というIDを持つ要素の中に書き込み
                     document.getElementById('display').innerText = data.message;
                 });
         }
 
+        // タイマー開始関数
         function startTimer() {
             if (!timerId) {
                 timerId = setInterval(updateTime, 1000);
             }
         }
 
+        // タイマー停止関数
         function stopTimer() {
             clearInterval(timerId);
             timerId = null;
