@@ -13,8 +13,6 @@ def index():
 @app.route('/api/data')    # /api/data というURLにアクセスがあった時に、下の関数を実行するように設定
 def get_data():
 
-    # 0. 世界標準時の場合
-    # now_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     # 1. 日本標準時（JST）のタイムゾーンを設定 (UTCから+9時間)
     jst = timezone(timedelta(hours=9))
@@ -25,21 +23,19 @@ def get_data():
     # 3. 指定したフォーマットで文字列に変換
     now_time = now_jst.strftime("%Y-%m-%d %H:%M:%S")
 
-    # 2. 取得した時刻の文字列をJSON形式で返却
+"""
+    世界標準時の場合  
+    # 1. 現在時刻を取得し、読みやすい文字列フォーマットに変換
+    now_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+"""
+
+    # 取得した時刻の文字列をJSON形式で返却
     return jsonify({"message": now_time})
 
-"""    # 1. 現在時刻を取得し、読みやすい文字列フォーマットに変換
-    now_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
-    # 2. 取得した時刻の文字列をJSON形式で返却
-    # バックエンドで生成した固定のデータ
-    message = "Hello from Python Backend! bbbb"
-    return jsonify({"message": message})
-"""
 
-"""
+"""　単なる文字列データの送信
     data = {
-        "message": "こんにちは！これはPythonバックエンドから送られたメッセージです。あああ",
+        "message": "こんにちは！これはPythonバックエンドから送られたメッセージです。",
         "status": "success"
     }
     return jsonify(data)  # JSON形式でフロントに送信
