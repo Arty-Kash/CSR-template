@@ -40,24 +40,24 @@ def get_data():
     # 3. 指定したフォーマットで文字列に変換
     now_time = now_jst.strftime("%Y-%m-%d %H:%M:%S")
 
-"""
+    """
     世界標準時の場合  
     # 1. 現在時刻を取得し、読みやすい文字列フォーマットに変換
     now_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-"""
+    """
 
     # 取得した時刻の文字列をJSON形式で返却
     # Flask     return jsonify({"message": now_time})
     # Fast API
     return {"message": now_time}
 
-"""　単なる文字列データの送信
+    """　単なる文字列データの送信
     data = {
         "message": "こんにちは！これはPythonバックエンドから送られたメッセージです。",
         "status": "success"
     }
     return jsonify(data)  # JSON形式でフロントに送信
-"""
+    """
 
 if __name__ == '__main__':
     # サーバを起動
