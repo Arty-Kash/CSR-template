@@ -1,6 +1,8 @@
 # Flask & FastAPI バージョン　2026.4.
 
-# Flask     from flask import Flask, render_template, jsonify
+# Flask
+# from flask import Flask, render_template, jsonify
+
 # Fast API
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
@@ -10,22 +12,28 @@ import uvicorn
 from fastapi.responses import StreamingResponse
 import asyncio  # 非同期処理のためのモジュール
 
-from datetime import datetime, timedelta, timezone # 現在時刻を取得するためのモジュールを追加
+# 現在時刻を取得するためのモジュール
+from datetime import datetime, timedelta, timezone
 
-# Flask     app = Flask(__name__)
+
+# Flask
+# app = Flask(__name__)
+
 # FastAPI
 app = FastAPI()
 
 
 # 1. 最初にページを表示するためのルート
 
-# Flask     @app.route('/') 
+# Flask
+# @app.route('/') 
+
 # Fast API
 @app.get("/")
 
 def index():
-    # templatesフォルダ内のindex.htmlを探してブラウザに返す
-    # Flask     return render_template('index.html')
+    # Flask: templatesフォルダ内のindex.htmlを探してブラウザに返す
+    # return render_template('index.html')
 
     # FastAPI
     # Flaskの render_template はHTMLの中身を書き換える（レンダリングする）機能があるが、
@@ -46,16 +54,18 @@ async def event_generator():
         # 3. 1秒待機
         await asyncio.sleep(1)
 
-# 2. フロントエンド（JS）から呼ばれる、データを送るためのルート
-# Flask     @app.route('/api/data')    # /api/data というURLにアクセスがあった時に、下の関数を実行するように設定
-# FastAPI　FastAPIでは、GETメソッドであることを明示的に書くのが一般的
+# フロントエンド（JS）から呼ばれる、データを送るためのルート
+# Flask
+# @app.route('/api/data')    # /api/data というURLにアクセスがあった時に、下の関数を実行するように設定
+
+# FastAPI: FastAPIでは、GETメソッドであることを明示的に書くのが一般的
 @app.get("/api/data")
 async def get_data():
     # StreamingResponseを使い、media_typeを "text/event-stream" に設定することでSSEとして動作させる
     return StreamingResponse(event_generator(), media_type="text/event-stream")
 
 
-"""
+""" Fetchの場合
 @app.get("/api/data")
 def get_data():
     # 1. 日本標準時（JST）のタイムゾーンを設定 (UTCから+9時間)
@@ -74,7 +84,9 @@ def get_data():
 
 
     # 取得した時刻の文字列をJSON形式で返却
-    # Flask     return jsonify({"message": now_time})
+    # Flask
+    # return jsonify({"message": now_time})
+    
     # FastAPI  FastAPIでは辞書型を返すと自動的にJSONに変換されます
     return {"message": now_time}
 """

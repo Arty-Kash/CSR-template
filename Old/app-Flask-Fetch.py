@@ -35,7 +35,7 @@ def get_data():
     return jsonify({"message": now_time})
 
 
-    """　単なる文字列データの送信
+    """　単なる文字列データの送信、　AI Studio 「x CSR → Build」で作成したコード
     data = {
         "message": "こんにちは！これはPythonバックエンドから送られたメッセージです。",
         "status": "success"
