@@ -15,49 +15,6 @@
     <script>
         // ボタンの表示を切り替える処理
         const btn = document.getElementById('toggleBtn');
-
-        let eventSource = null; // SSEの接続を管理するための変数
-
-
-        // タイマー開始関数（SSE接続の開始）
-        function startTimer() {
-            if (!eventSource) {
-                // 1. SSE接続を開始
-                eventSource = new EventSource('/api/data');
-
-                // 2. サーバーからメッセージが届いた時の処理
-                eventSource.onmessage = function(event) {
-                    // event.data にサーバーからの文字列が入っている
-                    document.getElementById('display').innerText = event.data;
-                };
-
-                // エラー時の処理（接続が切れた場合など）
-                eventSource.onerror = function() {
-                    stopTimer();
-                    btn.innerText = 'Start';
-                };
-            }
-        }
-
-        // タイマー停止関数（SSE接続の切断）
-        function stopTimer() {
-            if (eventSource) {
-                eventSource.close(); // 接続を閉じる
-                eventSource = null;
-            }
-        }
-
-        btn.addEventListener('click', () => {
-            if (btn.innerText === 'Stop') {
-                stopTimer();
-                btn.innerText = 'Start';
-            } else {
-                startTimer();
-                btn.innerText = 'Stop';
-            }
-        });
-
-        /*　Fetchの場合
         let timerId = null;     // タイマーを管理するための変数
 
         // データを取得して表示を更新する関数
@@ -95,7 +52,6 @@
                 btn.innerText = 'Stop';
             }
         });
-        */
 
         
         /*
@@ -109,7 +65,7 @@
         */
 
         // 1. ページ読み込み時に一度実行（最初の表示用）
-        // updateTime(); // Fetch用関数の呼び出しを停止
+        updateTime();
         startTimer(); // 4. 最初からタイマーを動かしておく
 
         // 2. 1秒（1000ミリ秒）ごとにupdateTime関数を実行し続けるタイマー
